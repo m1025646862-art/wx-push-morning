@@ -217,8 +217,9 @@ def get_weather(city):
         weather = res['data']['list'][0]
         return weather['weather'], math.floor(weather['temp'])
     except Exception:
-        #接口访问失败返回默认占位文本，程序不会崩溃
-        return "天气未知","--"
+        #失败时返回文本天气，数字温度0，兼容后面数字判断
+        return "天气未知", 0
+
 
 
 #计算在一起的日期
