@@ -211,10 +211,15 @@ def get_weekday():
 
 #获取天气
 def get_weather(city):
-  url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
-  res = requests.get(url).json()
-  weather = res['data']['list'][0]
-  return weather['weather'], math.floor(weather['temp'])
+    url = "http://autodev.openspeech.cn/csp/api/v2.1/csp/api/v2.1/weather"
+    try:
+        res = requests.get(url,timeout=10).json()
+        weather = res['data']['list'][0]
+        return weather['weather'], math.floor(weather['temp'])
+    except Exception:
+        #接口访问失败返回默认占位文本，程序不会崩溃
+        return "天气未知","--"
+
 
 #计算在一起的日期
 def get_count():
